@@ -23,20 +23,21 @@ public class Main {
         } while(annualInterest <= 0);
         // Monthly Interest
         float monthlyInterest = annualInterest / PERCENT / MONTH_IN_YEAR;
-
-        System.out.print("Period (Years): ");
-        byte years = scanner.nextByte();
-        if(years <= 0){
-            System.out.println("Invalid Years");
-            return;
-        }
+        // Period (Years)
+        byte years;
+        do {
+            System.out.print("Period (Years): ");
+            years = scanner.nextByte();
+            if(years <= 0) System.out.println("Invalid Years");
+        } while(years <= 0);
+        // Payments
         int numberOfPayments = years * MONTH_IN_YEAR;
-
+        // Calculate Mortgage
         double mortgage = principal *
                 (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
                 /
                 (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
-
+        // Output Format
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("Mortgage: " + mortgageFormatted);
 
