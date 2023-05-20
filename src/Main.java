@@ -12,12 +12,12 @@ public class Main {
         // Principal
         int principal;
         do {
-            System.out.print("Principal: ");
+            System.out.print("Principal ($1K - $1M): ");
             try {
                 principal = scanner.nextInt();
                 if(principal <= 0) System.out.println("Invalid Number");
             } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid number");
+                System.out.println("Please enter a valid number between 1,000 and 1,00,000");
                 scanner.nextLine();
                 principal = 0;
             }
@@ -31,7 +31,7 @@ public class Main {
                 annualInterest = scanner.nextFloat();
                 if(annualInterest <= 0) System.out.println("Invalid Number");
             } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid decimal number");
+                System.out.println("Please enter a valid number greater than 0 and less than or equal to 30");
                 scanner.nextLine();
                 annualInterest = 0;
             }
@@ -46,9 +46,9 @@ public class Main {
             System.out.print("Period (Years): ");
             try {
                 years = scanner.nextByte();
-                if(years <= 0) System.out.println("Invalid Years");
+                if(years <= 0) System.out.println("Invalid Number");
             } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid number");
+                System.out.println("Please enter a valid between 1 and 30");
                 scanner.nextLine();
                 years = 0;
             }
