@@ -1,71 +1,14 @@
-import java.text.NumberFormat;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
+
     public static void main(String[] args) {
-        // Utility Vars
-        final byte MONTH_IN_YEAR = 12;
-        final byte PERCENT = 100;
-        Scanner scanner = new Scanner(System.in);
+        int principal = (int) Console.readNumber("Principal: ", 1000, 1_000_000);
+        float annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
+        byte years = (byte) Console.readNumber("Period (Years): ", 1, 30);
 
-        // Principal
-        int principal;
-        do {
-            System.out.print("Principal ($1K - $1M): ");
-            try {
-                principal = scanner.nextInt();
-                if(principal <= 0) System.out.println("Invalid Number");
-            } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid number between 1,000 and 1,00,000");
-                scanner.nextLine();
-                principal = 0;
-            }
-        } while(principal <= 0);
-
-        // Annual Interest
-        float annualInterest;
-        do {
-            System.out.print("Annual Interest Rate: ");
-            try {
-                annualInterest = scanner.nextFloat();
-                if(annualInterest <= 0) System.out.println("Invalid Number");
-            } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid number greater than 0 and less than or equal to 30");
-                scanner.nextLine();
-                annualInterest = 0;
-            }
-        } while(annualInterest <= 0);
-
-        // Monthly Interest
-        float monthlyInterest = annualInterest / PERCENT / MONTH_IN_YEAR;
-
-        // Period (Years)
-        byte years;
-        do {
-            System.out.print("Period (Years): ");
-            try {
-                years = scanner.nextByte();
-                if(years <= 0) System.out.println("Invalid Number");
-            } catch (InputMismatchException exception) {
-                System.out.println("Please enter a valid between 1 and 30");
-                scanner.nextLine();
-                years = 0;
-            }
-        } while(years <= 0);
-
-        // Payments
-        int numberOfPayments = years * MONTH_IN_YEAR;
-
-        // Calculate Mortgage
-        double mortgage = principal *
-                (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
-                /
-                (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
-
-        // Output Format
-        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
-        System.out.println("Mortgage: " + mortgageFormatted);
-
+        var calculator = new MortgageCalculator(principal, annualInterest, years);
+        var report = new MortgageReport(calculator);
+        report.printMortgage();
+        report.printPaymentSchedule();
     }
+
 }
