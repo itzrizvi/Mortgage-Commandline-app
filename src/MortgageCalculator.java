@@ -1,7 +1,6 @@
 import java.text.NumberFormat;
 
 public class MortgageCalculator {
-
     private final static byte MONTHS_IN_YEAR = 12;
     private final static byte PERCENT = 100;
     private int principal;
